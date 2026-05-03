@@ -80,3 +80,8 @@ CREATE TABLE Booking (
 	FOREIGN KEY (PID)		REFERENCES Passenger(PID),
 	FOREIGN KEY (Flight_no)	REFERENCES Flight(Flight_no),
 );
+
+
+-- Needed to drop Uniqeness of nationality
+ALTER TABLE Passenger
+DROP CONSTRAINT UQ__Passenge__20628293A93CBE49;

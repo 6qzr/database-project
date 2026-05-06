@@ -49,7 +49,7 @@ GROUP BY f.Flight_no, f.Dep_airport, f.Arr_airport;
 -- airport city, destination airport city, total passengers booked, total baggage items, total delay duration in
 -- minutes (0 if no delays), and total booking revenue. Order by total booking revenue from highest to
 -- lowest.
-SELECT f.Flight_no, a.Name, f.gate_code AS Gate_code, apDep.City AS Origin_City, apArr.City AS Destination_City, COUNT(DISTINCT b.PID) AS Total_passengers, COUNT(bg.Tag) AS Total_baggage, COALESCE(SUM(fdl.Duration_minutes), 0) AS Total_delay, SUM(b.Price) AS Total_revenue
+SELECT f.Flight_no, a.Name, f.gate_code AS Gate_code, apDep.City AS Origin_City, apArr.City AS Destination_City, COUNT(DISTINCT b.PID) AS Total_passengers, COUNT(bg.Tag) AS Total_baggage, COALESCE(SUM(fdl.Duration_minutes), 0) AS Total_delay, COALESCE(SUM(DISTINCT b.Price),0) AS Total_revenue
 FROM Flight f
 JOIN Airline a ON a.IATA=f.Airline
 JOIN Airport apDep ON apDep.IATA=f.Dep_airport

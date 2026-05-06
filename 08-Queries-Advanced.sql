@@ -86,12 +86,12 @@ HAVING
 -- 10. FINAL CHALLENGE: Show the complete flight summary — flight number, origin airport city,
 -- destination airport city, aircraft model, aircraft manufacturer, total passengers booked, total crew
 -- assigned, and total revenue. Order by total revenue from highest to lowest.
-SELECT f.Flight_no, dep.City AS Origin_City, arr.City AS Destination_City, a.Model, a.Manufacturer, COUNT(DISTINCT b.PID) AS Total_bookings, COUNT(DISTINCT fc.Crew_no) AS Total_Crew, SUM(b.Price) AS Total_Revenue
+SELECT f.Flight_no, dep.City AS Origin_City, arr.City AS Destination_City, a.Model, a.Manufacturer, COUNT(DISTINCT b.PID) AS Total_bookings, COUNT(DISTINCT fc.Crew_no) AS Total_Crew, SUM(DISTINCT b.Price) AS Total_Revenue
 FROM Flight f
 JOIN Airport dep ON dep.IATA=f.Dep_airport
 JOIN Airport arr ON arr.IATA=f.Arr_airport
 JOIN Aircraft a ON a.Reg_num=f.Aircraft
 LEFT JOIN Booking b ON b.Flight_no=f.Flight_no
 LEFT JOIN FlightCrew fc ON fc.Flight_no=f.Flight_no
-GROUP BY f.Flight_no, dep.Name, arr.Name, a.Model, a.Manufacturer
+GROUP BY f.Flight_no, dep.City, arr.City, a.Model, a.Manufacturer
 ORDER BY Total_Revenue Desc;
